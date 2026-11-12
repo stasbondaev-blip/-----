@@ -18,23 +18,11 @@
             background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
             border-radius: 20px; padding: 25px; margin-bottom: 20px;
         }
-        .card h2 { font-size: 20px; margin-bottom: 15px; }
-        .workout-item {
-            background: rgba(255, 255, 255, 0.2); padding: 15px;
-            border-radius: 12px; margin-bottom: 10px;
-        }
-        .workout-item h3 { font-size: 16px; margin-bottom: 5px; }
-        .workout-item p { font-size: 14px; opacity: 0.9; }
         .btn {
             background: white; color: #667eea; border: none; padding: 15px 30px;
             border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer;
-            width: 100%; margin-top: 10px; transition: all 0.2s;
+            width: 100%; margin-top: 10px;
         }
-        .btn:active { transform: scale(0.95); background: #f0f0f0; }
-        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .stat-item { text-align: center; }
-        .stat-number { font-size: 32px; font-weight: bold; }
-        .stat-label { font-size: 12px; opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -42,17 +30,7 @@
         <h1>💪 FitCoach Pro</h1>
         <div class="card">
             <h2>Тренировка на сегодня</h2>
-            <div class="workout-item"><h3>🏃 Разминка</h3><p>5 минут легкого кардио</p></div>
-            <div class="workout-item"><h3>💪 Приседания</h3><p>3 подхода по 15 повторений</p></div>
-            <div class="workout-item"><h3>🔥 Отжимания</h3><p>3 подхода по 10 повторений</p></div>
             <button class="btn" id="startBtn" onclick="startWorkout()">Начать тренировку</button>
-        </div>
-        <div class="card">
-            <h2>Твой прогресс</h2>
-            <div class="stats">
-                <div class="stat-item"><div class="stat-number">12</div><div class="stat-label">Тренировок</div></div>
-                <div class="stat-item"><div class="stat-number">5</div><div class="stat-label">Дней подряд</div></div>
-            </div>
         </div>
     </div>
     <script>
@@ -60,14 +38,17 @@
         tg.expand();
         
         function startWorkout() {
-            // 1. Визуально меняем кнопку, чтобы ты ВИДЕЛ, что она сработала
             const btn = document.getElementById('startBtn');
-            btn.innerText = '⏳ Отправка данных боту...';
-            btn.style.background = '#ffd700';
-            btn.style.color = '#000';
+            btn.innerText = '⏳ Отправка...';
+            btn.style.background = 'yellow';
             
-            // 2. Отправляем данные в Telegram
+            // Пробуем sendData
             tg.sendData('start_workout');
+            
+            // Если sendData не работает, закрываем приложение
+            setTimeout(() => {
+                tg.close();
+            }, 500);
         }
     </script>
 </body>
