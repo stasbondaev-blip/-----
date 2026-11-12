@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FitCoach Pro</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -28,9 +28,9 @@
         .btn {
             background: white; color: #667eea; border: none; padding: 15px 30px;
             border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer;
-            width: 100%; margin-top: 10px; transition: transform 0.2s;
+            width: 100%; margin-top: 10px; transition: all 0.2s;
         }
-        .btn:active { transform: scale(0.98); }
+        .btn:active { transform: scale(0.95); background: #f0f0f0; }
         .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .stat-item { text-align: center; }
         .stat-number { font-size: 32px; font-weight: bold; }
@@ -45,7 +45,7 @@
             <div class="workout-item"><h3>🏃 Разминка</h3><p>5 минут легкого кардио</p></div>
             <div class="workout-item"><h3>💪 Приседания</h3><p>3 подхода по 15 повторений</p></div>
             <div class="workout-item"><h3>🔥 Отжимания</h3><p>3 подхода по 10 повторений</p></div>
-            <button class="btn" onclick="startWorkout()">Начать тренировку</button>
+            <button class="btn" id="startBtn" onclick="startWorkout()">Начать тренировку</button>
         </div>
         <div class="card">
             <h2>Твой прогресс</h2>
@@ -58,7 +58,15 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        
         function startWorkout() {
+            // 1. Визуально меняем кнопку, чтобы ты ВИДЕЛ, что она сработала
+            const btn = document.getElementById('startBtn');
+            btn.innerText = '⏳ Отправка данных боту...';
+            btn.style.background = '#ffd700';
+            btn.style.color = '#000';
+            
+            // 2. Отправляем данные в Telegram
             tg.sendData('start_workout');
         }
     </script>
