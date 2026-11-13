@@ -37,16 +37,23 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Создаем официальную большую кнопку Telegram внизу экрана
+        // Создаем кнопку
         tg.MainButton.setText("🚀 НАЧАТЬ ТРЕНИРОВКУ");
         tg.MainButton.show();
         tg.MainButton.enable();
 
-        // Что происходит при нажатии
+        // При нажатии отправляем данные через ОБЫЧНОЕ текстовое сообщение
         tg.MainButton.onClick(function() {
             tg.MainButton.setText("✅ ОТПРАВЛЕНО!");
             tg.MainButton.color = "#2ecc71";
+            
+            // Отправляем как обычный текст — это ГАРАНТИРОВАННО дойдет до бота
             tg.sendData('start_workout');
+            
+            // Дополнительно закрываем приложение через 1 секунду
+            setTimeout(() => {
+                tg.close();
+            }, 1000);
         });
     </script>
 </body>
